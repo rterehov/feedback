@@ -1,0 +1,11 @@
+<h1>Сервис фидбека</h1>
+
+<% if user_signed_in? %>
+  <p>Добро пожаловать!</p>
+  <p><%=link_to 'Выйти', destroy_user_session_path, :method => :delete %></p>
+<% else %>
+<p><%=link_to 'Регистрация', new_user_registration_path %></p>
+<p><%=link_to 'Войти', new_user_session_path %></p>
+<% end %>
+
+
