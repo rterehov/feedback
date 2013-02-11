@@ -1,9 +1,15 @@
-<% if user_signed_in? %>
-  <p>Добро пожаловать!</p>
-  <p><%=link_to 'Выйти', destroy_user_session_path, :method => :delete %></p>
-<% else %>
-<p><%=link_to 'Регистрация', new_user_registration_path %></p>
-<p><%=link_to 'Войти', new_user_session_path %></p>
-<% end %>
+<div class="jumbotron">
+    <h1>Сервис фидбека</h1>
+    <p class="lead">Создай форму фидбека на своем сайте за 5 минут и принимай отзывы!</p>
+    <%= link_to "Регистрация", new_user_registration_path, :class => "btn btn-large btn-success" %>
+    <%= link_to "Вход", new_user_session_path, :class => "btn btn-large btn-success" %>
 
+  </div>
 
+  <hr>
+
+  <div class="footer">
+    <p>&copy; Терехов Руслан 2013</p>
+  </div>
+
+</div>

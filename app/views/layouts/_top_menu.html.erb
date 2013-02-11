@@ -1,0 +1,9 @@
+<div class="nav-collapse collapse">
+  <ul class="nav pull-right">
+    <%= nav_link("На главную", root_path) %>
+    <%= nav_link("О проекте", about_page_path) %>
+    <%= nav_link("Контакты", contacts_path) %>
+    <li><% if user_signed_in? %><%= link_to "Выход", destroy_user_session_path, :method => :delete %><% end %></li>
+  </ul>
+</div>
+

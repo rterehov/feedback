@@ -1,0 +1,22 @@
+<h2>Мои сайты</h2>
+
+<table class="table">
+  <tr>
+    <th>Сайт</th>
+    <th>Email администратора</th>
+    <th>Операции</th>
+  </tr>
+
+<% @sites.each do |site| %>
+  <tr>
+    <td><%= site.domain %></td>
+    <td><%= site.email %></td>
+    <td><%= link_to 'Просмотр', site %> | <%= link_to 'Редактирование', edit_site_path(site) %> | <%= link_to 'Удалить', site, method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Добавить сайт', new_site_path, :class => "btn btn-mini btn-primary"  %>
+

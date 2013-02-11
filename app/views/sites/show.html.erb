@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Сайт:</b>
+  <%= @site.domain %>
+</p>
+
+<p>
+  <b>Email администратора:</b>
+  <%= @site.email %>
+</p>
+
+
+<%= link_to 'Редактировать', edit_site_path(@site) %> |
+<%= link_to 'Назад', sites_path %>
