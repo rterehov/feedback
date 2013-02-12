@@ -2,7 +2,7 @@
 class WelcomeController < ApplicationController
   def index
     if current_user
-      return redirect profile_path
+      return redirect_to sites_path
     end
   end
 end

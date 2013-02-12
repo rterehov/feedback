@@ -1,9 +1,19 @@
-<div class="nav-collapse collapse">
-  <ul class="nav pull-right">
-    <%= nav_link("На главную", root_path) %>
-    <%= nav_link("О проекте", about_page_path) %>
-    <%= nav_link("Контакты", contacts_path) %>
-    <li><% if user_signed_in? %><%= link_to "Выход", destroy_user_session_path, :method => :delete %><% end %></li>
-  </ul>
+<% if user_signed_in? %>
+  <div class="masthead">
+    <ul class="nav nav-pills pull-right">
+      <li><%= link_to current_user.email, sites_path, :class => "pull-right" %></li>
+      <li><%= link_to "Выход", destroy_user_session_path, :method => :delete %></li>
+    </ul>
+  </div>
+<% else %>
+<!--
+<div class="navbar-form pull-right">
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => "navbar-form pull-right"}) do |f| %>
+    <%= f.email_field :email, :autofocus => true, :class=>"span2", :placeholder=>"Email" %>
+    <%= f.password_field :password, :class=>"span2", :placeholder=>"password", :size => 20 %>
+    <%= f.submit "Войти", :class => "btn btn-primary"  %>
+<% end %>
+-->
+<% end %>
 </div>
 
