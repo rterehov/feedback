@@ -1,0 +1,10 @@
+
+<% if item.errors.any? %>
+<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <% item.errors.full_messages.each_with_index do |msg,i| %>
+        <% if i>1 %><br><% end %><%= msg %>
+    <% end %>
+</div>
+<% end %>
+

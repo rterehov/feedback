@@ -1,25 +1,13 @@
 <%= form_for(@site) do |f| %>
-  <% if @site.errors.any? %>
-    <div id="error_explanation">
-      <h2>Обнаружены ошибки:</h2>
-
-      <ul>
-      <% @site.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+  <%= render :partial => "layouts/form_errors", :locals => {:item => @site} %>
+  
   <div class="field">
-    <%= f.label :domain %><br />
-    <%= f.text_field :domain %>
+    <%= f.text_field :domain, :placeholder => "Домен" %>
   </div>
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
+    <%= f.text_field :email, :placeholder => "Email администратора"  %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Сохранить", :class => "btn btn-success" %>
   </div>
 <% end %>

@@ -24,4 +24,9 @@ module ApplicationHelper
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
   end
+
+  def devise_error_messages_by_p!
+    resource.errors.full_messages.map { |msg| content_tag(:p, msg) }.join.html_safe
+  end
+
 end

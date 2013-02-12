@@ -3,7 +3,7 @@ Feedback::Application.routes.draw do
 
   root :to => "welcome#index"
   match "/about" => "welcome#about", :as => :about_page
-  match "/contacts" => "welcome#contacts", :as => :contact
+  match "/contacts" => "welcome#contacts", :as => :contacts
   match "" => "welcome#about", :as => :about 
 
   devise_for :users

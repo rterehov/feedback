@@ -1,0 +1,7 @@
+<% if not resource.errors.empty? %>
+  <div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <%= devise_error_messages_by_p! %>
+  </div>
+<% end %>
+

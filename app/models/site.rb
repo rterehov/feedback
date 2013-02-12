@@ -3,4 +3,6 @@ class Site < ActiveRecord::Base
   has_many :messages
 
   attr_accessible :domain, :email
+
+  validates :domain, :presence => true
 end
