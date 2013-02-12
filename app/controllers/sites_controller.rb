@@ -1,7 +1,7 @@
 #encoding: utf-8
 class SitesController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :load_site, :only => [:show, :edit, :update, :destroy]
+  before_filter :load_site, :only => [:show, :edit, :update, :destroy, :form_post, :for_page]
 
   def index
     @sites = Site.where(:user_id => current_user.id)
@@ -68,6 +68,13 @@ class SitesController < ApplicationController
       format.html { redirect_to sites_url }
       format.json { head :no_content }
     end
+  end
+
+  def form_post
+  end
+
+  def form_page
+    @form = nil
   end
 
 protected

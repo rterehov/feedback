@@ -15,4 +15,8 @@ Feedback::Application.routes.draw do
     end
     match "/messages" => "messages#index", :as => :messages
   end
+
+  match "/form_post/:id" => "sites#form_post", :as => :form_post
+  match "/form_page/:site_id" => "messages#new_for_site", :as => :form_page
+
 end
