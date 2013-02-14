@@ -1,3 +1,4 @@
+#encoding: utf-8
 class MessagesController < ApplicationController
   before_filter :authenticate_user!, :only => [:index, :show, :edit, :update, :destroy]
   
@@ -28,15 +29,17 @@ class MessagesController < ApplicationController
     end
   end
 
-  def new_for_site
+  def embed
     @site = Site.find(params[:site_id])
-    @message = Message.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @message }
+    @domain = request.env["REMOTE_HOST"]
+    
+    layout = 'embed'
+    unless @site.domain == @domain
+      layout = 'forbidden'
     end
 
+    @message = Message.new
+    render :layout => layout
   end
 
   def edit
@@ -45,10 +48,11 @@ class MessagesController < ApplicationController
 
   def create
     @message = Message.new(params[:message])
-
+    site_id = params[:site_id]
+    @message_site_id = site_id
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
+        format.html { redirect_to embed_path(site_id), notice: 'Сообщение отправлено.' }
         format.json { render json: @message, status: :created, location: @message }
       else
         format.html { render action: "new" }

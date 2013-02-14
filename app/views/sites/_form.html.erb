@@ -1,3 +1,4 @@
+<% email ||= nil %>
 <%= form_for(@site) do |f| %>
   <%= render :partial => "layouts/form_errors", :locals => {:item => @site} %>
   
@@ -5,7 +6,7 @@
     <%= f.text_field :domain, :placeholder => "Домен" %>
   </div>
   <div class="field">
-    <%= f.text_field :email, :placeholder => "Email администратора"  %>
+    <%= f.text_field :email, :placeholder => "Email администратора", :value => email ? email : @site.email  %>
   </div>
   <div class="actions">
     <%= f.submit "Сохранить", :class => "btn btn-success" %>

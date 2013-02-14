@@ -1,5 +1,5 @@
 <h2>Добавить сайт</h2>
 
-<%= render 'form' %>
+<%= render :partial => 'form', :locals => { :email => current_user.email } %>
 
 <%= link_to 'Назад', sites_path %>

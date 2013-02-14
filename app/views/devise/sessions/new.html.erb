@@ -1,5 +1,5 @@
 <div class="jumbotron">
-<h2>Выполните вход или зарегистрируйтесь</h2>
+<h2>Выполните вход</h2>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <%= render :partial => "layouts/devise_errors" %>
@@ -7,7 +7,7 @@
   <div><%= f.password_field :password, :placeholder => "Пароль" %></div>
   <% if devise_mapping.rememberable? -%>
     <div><%= f.check_box :remember_me %> Входить автоматически</div>
-  <% end -%>
+  <% end -%><br>
   <div><%= f.submit "Войти", :class => "btn btn-primary" %></div>
 <% end %>
 

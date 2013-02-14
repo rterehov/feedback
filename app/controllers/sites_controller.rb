@@ -19,6 +19,10 @@ class SitesController < ApplicationController
     end
   end
 
+  def show_form
+    @site = Site.find(params[:site_id]) 
+  end
+
   def new
     @site = Site.new
 

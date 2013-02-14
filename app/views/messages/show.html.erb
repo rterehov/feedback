@@ -1,17 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Site:</b>
+  <b>Сайт:</b>
   <%= @message.site_id %>
 </p>
 
 <p>
-  <b>Name:</b>
+  <b>Имя ползователя:</b>
   <%= @message.name %>
 </p>
 
 <p>
-  <b>Phone:</b>
+  <b>Телефон:</b>
   <%= @message.phone %>
 </p>
 
@@ -21,10 +21,10 @@
 </p>
 
 <p>
-  <b>Message:</b>
+  <b>Сообщение:</b>
   <%= @message.message %>
 </p>
 
 
-<%= link_to 'Edit', edit_message_path(@message) %> |
-<%= link_to 'Back', messages_path %>
+<%= link_to 'Редактировать', edit_message_path(@message) %> |
+<%= link_to 'Назад', messages_path %>

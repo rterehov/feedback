@@ -7,19 +7,13 @@ class Site < ActiveRecord::Base
 
   validates :domain, :presence => true
 
-#  def iframe
-#    "<iframe frameborder=\"0\" width=\"640\" height=\"480\" src=\"#{form_url(id)}\"></iframe>"
-#  end
+  def iframe
+    "<iframe frameborder=\"0\" width=\"300\" height=\"320\" src=\"#{form_url}\"></iframe>"
+  end
 
-  def form_code(url)
-    html = "
-<form url='#{url}' method=post>
-  <input placeholder='Email'>
-  <input placeholder='Телефон'>
-  <text placeholder='Введите ваше сообщение'>
-  <input type=submit>
-</form>"
-    return html
+  def form_url
+    File.join("http://#{APP_CONFIG[:host]}:#{APP_CONFIG[:port]}", 
+        Rails.application.routes.url_helpers.embed_url({:site_id => 1, :only_path => true}))
   end
 
 end

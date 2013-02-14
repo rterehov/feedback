@@ -1,12 +1,12 @@
-<h1>Listing messages</h1>
+<h3>Сообщения пользователей</h3>
 
-<table>
+<table class=table>
   <tr>
-    <th>Site</th>
-    <th>Name</th>
-    <th>Phone</th>
+    <th>Сайт</th>
+    <th>Пользователь</th>
+    <th>Телефон</th>
     <th>Email</th>
-    <th>Message</th>
+    <th>Сообщение</th>
     <th></th>
     <th></th>
     <th></th>
@@ -14,18 +14,15 @@
 
 <% @messages.each do |message| %>
   <tr>
-    <td><%= message.site_id %></td>
+    <td><%= message.site.domain %></td>
     <td><%= message.name %></td>
     <td><%= message.phone %></td>
     <td><%= message.email %></td>
     <td><%= message.message %></td>
-    <td><%= link_to 'Show', message %></td>
-    <td><%= link_to 'Edit', edit_message_path(message) %></td>
-    <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Показать', message %></td>
+    <td><%= link_to 'Редактировать', edit_message_path(message) %></td>
+    <td><%= link_to 'Удалить', message, method: :delete, data: { confirm: 'Вы уверены?' } %></td>
   </tr>
 <% end %>
 </table>
 
-<br />
-
-<%= link_to 'New Message', new_message_path %>
