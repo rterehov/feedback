@@ -7,18 +7,21 @@
     <th>Телефон</th>
     <th>Email</th>
     <th>Сообщение</th>
+    <th>Статус</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
 <% @messages.each do |message| %>
+  <% label = APP_CONFIG[:label][message.status.to_i] %>
   <tr>
     <td><%= message.site.domain  %></td>
     <td><%= message.name %></td>
     <td><%= message.phone %></td>
     <td><%= message.email %></td>
     <td><%= message.message %></td>
+    <td><span class="label <%= label %>"><%= APP_CONFIG[:status][message.status.to_i] %></span></td>
     <td><%= link_to 'Показать', site_message_path(message.site.id, message) %></td>
     <td><%= link_to 'Редактировать', edit_site_message_path(message.site.id, message) %></td>
     <td><%= link_to 'Удалить', site_message_path(message.site.id, message), method: :delete, data: { confirm: 'Вы уверены?' } %></td>

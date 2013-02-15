@@ -3,7 +3,8 @@ class MessagesController < ApplicationController
   before_filter :authenticate_user!, :only => [:index, :show, :edit, :update, :destroy]
   
   def index
-    @messages = Message.all
+    ids = current_user.sites.all(:select => 'id').map(&:id)
+    @messages = Message.where("site_id in (#{ids.join(',')})")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -55,7 +56,9 @@ class MessagesController < ApplicationController
     @message.site_id = @site.id
     respond_to do |format|
       if @message.save
-        FeedbackMailer.notification(@message).deliver
+        if @message.site.email
+          FeedbackMailer.notification(@message).deliver
+        end
         format.html { redirect_to embed_path(@site.id), notice: 'Сообщение отправлено.' }
         format.json { render json: @message, status: :created, location: @message }
       else
@@ -70,7 +73,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.update_attributes(params[:message])
-        format.html { redirect_to @message, notice: 'Message was successfully updated.' }
+        format.html { redirect_to @message, notice: 'Сообщение обновлено.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

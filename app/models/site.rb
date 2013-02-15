@@ -13,7 +13,7 @@ class Site < ActiveRecord::Base
 
   def form_url
     File.join("http://#{APP_CONFIG[:host]}:#{APP_CONFIG[:port]}", 
-        Rails.application.routes.url_helpers.embed_url({:site_id => 1, :only_path => true}))
+        Rails.application.routes.url_helpers.embed_url({:site_id => id, :only_path => true}))
   end
 
 end

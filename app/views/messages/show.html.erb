@@ -25,6 +25,11 @@
   <%= @message.message %>
 </p>
 
+<p>
+  <b>Статус:</b>
+  <span class="label <%= label %>"><%= APP_CONFIG[:status][@message.status.to_i] %></span>
+</p>
+
 
 <%= link_to 'Редактировать', edit_site_message_path(@message) %> |
 <%= link_to 'Назад', messages_path %>

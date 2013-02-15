@@ -8,13 +8,15 @@
   <%= @site.email %>
 </p>
 
+<br>
 <p>
-  <b>Код формы для вставки на сайт:</b>
+  <h4>Код формы для вставки на сайт:</h4>
   <pre>
     <%= @site.iframe %>
   </pre>
 </p>
+<br>
 
 
 <%= link_to 'Редактировать', edit_site_path(@site) %> |
-<%= link_to 'Назад', sites_path %>
+<%= link_to 'К списку сайтов', sites_path %>

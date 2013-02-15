@@ -12,6 +12,8 @@ gem "therubyracer"
 gem "less-rails"
 gem "libv8"
 
+gem "russian"
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
