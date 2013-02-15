@@ -48,11 +48,15 @@ class MessagesController < ApplicationController
 
   def create
     @message = Message.new(params[:message])
-    site_id = params[:site_id]
-    @message_site_id = site_id
+    @site = Site.find(params[:site_id])
+    unless @site
+      raise
+    end
+    @message.site_id = @site.id
     respond_to do |format|
       if @message.save
-        format.html { redirect_to embed_path(site_id), notice: 'Сообщение отправлено.' }
+        FeedbackMailer.notification(@message).deliver
+        format.html { redirect_to embed_path(@site.id), notice: 'Сообщение отправлено.' }
         format.json { render json: @message, status: :created, location: @message }
       else
         format.html { render action: "new" }

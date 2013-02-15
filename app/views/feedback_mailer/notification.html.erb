@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+  <h1><%= @user.email %>, наилучшие пожелания от сервиса "Сервис фидбека"</h1>
+  <p>
+    На Ваш сайт <%= @site.domain %> поступило новое сообщение от пользователя.<br/>
+  </p>
+  <p>
+    Для просмотра сообщения перейдите по ссылке: <%= link_to "ссылка", site_message_url(@site.id, @message.id) %>.
+  </p>
+  <p>Хорошего дня!</p>
+  <p>Сервис фидбека (с) 2013</p>
+</body>
+</html>

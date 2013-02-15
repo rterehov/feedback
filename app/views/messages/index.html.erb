@@ -14,14 +14,14 @@
 
 <% @messages.each do |message| %>
   <tr>
-    <td><%= message.site.domain %></td>
+    <td><%= message.site.domain  %></td>
     <td><%= message.name %></td>
     <td><%= message.phone %></td>
     <td><%= message.email %></td>
     <td><%= message.message %></td>
-    <td><%= link_to 'Показать', message %></td>
-    <td><%= link_to 'Редактировать', edit_message_path(message) %></td>
-    <td><%= link_to 'Удалить', message, method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+    <td><%= link_to 'Показать', site_message_path(message.site.id, message) %></td>
+    <td><%= link_to 'Редактировать', edit_site_message_path(message.site.id, message) %></td>
+    <td><%= link_to 'Удалить', site_message_path(message.site.id, message), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
   </tr>
 <% end %>
 </table>
