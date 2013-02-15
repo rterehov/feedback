@@ -8,7 +8,7 @@ class Site < ActiveRecord::Base
   validates :domain, :presence => true
 
   def iframe
-    "<iframe frameborder=\"0\" width=\"300\" height=\"320\" src=\"#{form_url}\"></iframe>"
+    "<iframe frameborder=\"0\" width=\"300\" height=\"340\" src=\"#{form_url}\"></iframe>"
   end
 
   def form_url

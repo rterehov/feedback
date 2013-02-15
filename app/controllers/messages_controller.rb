@@ -4,7 +4,11 @@ class MessagesController < ApplicationController
   
   def index
     ids = current_user.sites.all(:select => 'id').map(&:id)
-    @messages = Message.where("site_id in (#{ids.join(',')})")
+    if ids.empty?
+      @messages = []
+    else
+      @messages = Message.where("site_id in (#{ids.join(',')})")
+    end
 
     respond_to do |format|
       format.html # index.html.erb
