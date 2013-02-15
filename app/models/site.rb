@@ -6,25 +6,33 @@ class Site < ActiveRecord::Base
   attr_accessible :domain, :email
 
   validates :domain, :presence => true
-  validates_uniqueness_of :domain, :scope => :user, :case_sensitive => false
+  validates_uniqueness_of :domain, :case_sensitive => false
 
-  def before_save(site)
-    domain = site.domain
-    schema = URI.parse(site.domain).schema
-    unless schema
-      domain = "http://#{domain}"
-    end
-    parts = URI.parse(domain).domain.split(".")
-    site.domain = domain = "#{parts[-2]}.#{parts[-1]}"
-  end
+  before_save :before_save_handler
 
+  
   def iframe
-    "<iframe frameborder=\"0\" width=\"300\" height=\"340\" src=\"#{form_url}\"></iframe>"
+    "<iframe frameborder=\"0\" width=\"300\" height=\"480\" src=\"#{form_url}\"></iframe>"
   end
 
   def form_url
     File.join("http://#{APP_CONFIG[:host]}:#{APP_CONFIG[:port]}", 
         Rails.application.routes.url_helpers.embed_url({:site_id => id, :only_path => true}))
+  end
+
+private
+
+  # Оставляем от домена только корневой домен и домен первого уровня
+  def before_save_handler
+    return if domain == 'localhost'
+    return if Regexp.new(/^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$/).math(domain)
+    scheme = URI.parse(domain).scheme
+    domain2 = domain
+    unless scheme
+      domain2 = "http://#{domain}"
+    end
+    parts = URI.parse(domain2).host.split(".")
+    self.domain = "#{parts[-2]}.#{parts[-1]}"
   end
 
 end

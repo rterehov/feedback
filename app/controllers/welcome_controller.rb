@@ -1,8 +1,14 @@
 #encoding: utf-8
 class WelcomeController < ApplicationController
   def index
-    if current_user
-      return redirect_to sites_path
-    end
+    @index = true
+  end
+
+  def about
+    @index = true
+  end
+
+  def contacts
+    @index = true
   end
 end

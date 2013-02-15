@@ -48,7 +48,7 @@
   <% end %>
 
   <div>
-    <% if user_signed_in? %><%= render :partial => 'layouts/menu' %><% end %>
+    <% if user_signed_in? and not @index %><%= render :partial => 'layouts/menu' %><% end %>
     <%= yield %>
     
     <div class="footer">

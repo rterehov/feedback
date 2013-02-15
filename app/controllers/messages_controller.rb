@@ -27,7 +27,6 @@ class MessagesController < ApplicationController
 
   def new
     @message = Message.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @message }
@@ -37,7 +36,7 @@ class MessagesController < ApplicationController
   def embed
     @site = Site.find(params[:site_id])
     @domain = request.env["REMOTE_HOST"]
-    
+
     layout = 'embed'
     unless @site.domain == @domain
       layout = 'forbidden'
@@ -64,10 +63,8 @@ class MessagesController < ApplicationController
           FeedbackMailer.notification(@message).deliver
         end
         format.html { redirect_to embed_path(@site.id), notice: 'Сообщение отправлено.' }
-        format.json { render json: @message, status: :created, location: @message }
       else
-        format.html { render action: "new" }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
+        format.html { render action: "embed", :layout => "embed" }
       end
     end
   end
