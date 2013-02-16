@@ -6,6 +6,7 @@ class Site < ActiveRecord::Base
   attr_accessible :domain, :email
 
   validates :domain, :presence => true
+  validate :domain_check
   validates_uniqueness_of :domain, :case_sensitive => false
 
   before_save :before_save_handler
@@ -22,10 +23,15 @@ class Site < ActiveRecord::Base
 
 private
 
+  def domain_check
+    if Regexp.new(/^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$/).match(domain)
+      errors[:base] << "Укажите домен, а не IP"
+    end
+  end
+
   # Оставляем от домена только корневой домен и домен первого уровня
   def before_save_handler
     return if domain == 'localhost'
-    return if Regexp.new(/^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$/).math(domain)
     scheme = URI.parse(domain).scheme
     domain2 = domain
     unless scheme

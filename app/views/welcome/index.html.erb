@@ -6,6 +6,6 @@
       <%= link_to "Вход", new_user_session_path, :class => "btn btn-large btn-primary" %>
     <% else %>
       <p class="lead">Вы вошли как <%= current_user.email %></p>
-      <%= link_to "Перейти в профиль", sites_path, :class => "btn btn-primary"  %>
+      <%= link_to "Перейти в профиль", sites_path, :class => "btn btn-primary" %><br>
     <% end %>
 </div>

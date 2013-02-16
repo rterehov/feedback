@@ -1,6 +1,6 @@
-<h1>Редактирование сообщения</h1>
+<h2>Редактирование сообщения</h2>
 
 <%= render 'form' %>
 
-<%= link_to 'Просмотр', @message %> |
+<%= link_to 'Просмотр', site_message_path(@message) %> |
 <%= link_to 'Назад', site_messages_path %>

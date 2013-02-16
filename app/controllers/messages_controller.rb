@@ -25,20 +25,13 @@ class MessagesController < ApplicationController
     end
   end
 
-  def new
-    @message = Message.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @message }
-    end
-  end
-
   def embed
     @site = Site.find(params[:site_id])
     @domain = request.env["REMOTE_HOST"]
+    @debug = params[:debug]
 
     layout = 'embed'
-    unless @site.domain == @domain
+    if not @site.domain == @domain and not @debug
       layout = 'forbidden'
     end
 
@@ -51,30 +44,37 @@ class MessagesController < ApplicationController
   end
 
   def create
+    @debug = params[:debug]
     @message = Message.new(params[:message])
     @site = Site.find(params[:site_id])
     unless @site
       raise
     end
+    @domain = request.env["REMOTE_HOST"]
+
     @message.site_id = @site.id
     respond_to do |format|
+      if not @site.domain == @domain and not @debug
+        format.html { render action: "embed", :layout => "forbidden" }
+      end
       if @message.save
         if @message.site.email
           FeedbackMailer.notification(@message).deliver
         end
-        format.html { redirect_to embed_path(@site.id), notice: 'Сообщение отправлено.' }
+        format.html { redirect_to embed_path(@site.id, :debug => @debug), notice: 'Сообщение отправлено.' }
       else
-        format.html { render action: "embed", :layout => "embed" }
+        format.html { render action: "embed", :layout => "embed", :debug => @debug }
       end
     end
   end
 
   def update
     @message = Message.find(params[:id])
+    @message.status = params[:message][:status].to_i
 
     respond_to do |format|
-      if @message.update_attributes(params[:message])
-        format.html { redirect_to @message, notice: 'Сообщение обновлено.' }
+      if @message.save!
+        format.html { redirect_to site_message_path(@message), notice: 'Сообщение обновлено.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -10,6 +10,10 @@ global: &global
     1: "label-success"
     2: "label-info"
     3: "label-default"
+  button:
+    1: "btn-success"
+    2: "btn-info"
+    3: "btn-default"
 
   
 development: &development

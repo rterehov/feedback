@@ -2,7 +2,7 @@
 
 <p>
   <b>Сайт:</b>
-  <%= @message.site_id %>
+  <%= @message.site.domain %>
 </p>
 
 <p>
@@ -21,13 +21,13 @@
 </p>
 
 <p>
-  <b>Сообщение:</b>
-  <%= @message.message %>
+  <b>Статус:</b>
+  <span class="label <%= APP_CONFIG[:label][@message.status.to_i] %>"><%= APP_CONFIG[:status][@message.status.to_i] %></span>
 </p>
 
 <p>
-  <b>Статус:</b>
-  <span class="label <%= label %>"><%= APP_CONFIG[:status][@message.status.to_i] %></span>
+  <b>Сообщение:</b>
+  <pre><%= @message.message %></pre>
 </p>
 
 
