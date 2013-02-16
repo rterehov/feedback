@@ -1,11 +1,16 @@
 #encoding: utf-8
 class MessagesController < ApplicationController
   before_filter :authenticate_user!, :only => [:index, :show, :edit, :update, :destroy]
-  
+  before_filter :preload, :only => [:show, :edit, :destroy, :update]
+
   def index
     @site = nil
-    site_id = params[:message][:site_id].to_i
-    @status = params[:message][:status].to_i
+    site_id = 0
+    @status = 0
+    if params[:message]
+      site_id = params[:message][:site_id]
+      @status = params[:message][:status]
+    end
     ids = Array.new
     @messages = Array.new
     if site_id
@@ -35,8 +40,6 @@ class MessagesController < ApplicationController
   end
 
   def show
-    @message = Message.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @message }
@@ -58,12 +61,10 @@ class MessagesController < ApplicationController
   end
 
   def edit
-    @message = Message.find(params[:id])
   end
 
   def create
     @debug = params[:debug]
-    @message = Message.new(params[:message])
     @site = Site.find(params[:site_id])
     unless @site
       raise
@@ -87,12 +88,11 @@ class MessagesController < ApplicationController
   end
 
   def update
-    @message = Message.find(params[:id])
     @message.status = params[:message][:status].to_i
 
     respond_to do |format|
       if @message.save!
-        format.html { redirect_to site_message_path(@message), notice: 'Сообщение обновлено.' }
+        format.html { redirect_to message_path(@message), notice: 'Сообщение обновлено.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -102,7 +102,6 @@ class MessagesController < ApplicationController
   end
 
   def destroy
-    @message = Message.find(params[:id])
     @message.destroy
 
     respond_to do |format|
@@ -110,4 +109,17 @@ class MessagesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+private
+
+  def preload
+    @message = Message.find(params[:id])
+    @sites = current_user.sites
+    unless @sites.include?(@message.site)
+      flash[:alert] = "Такого сообщения не существует"
+      return redirect_to messages_path
+    end
+  end
+
 end

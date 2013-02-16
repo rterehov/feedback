@@ -35,9 +35,9 @@
     <td><%= message.email %></td>
     <td><%= message.message.first(30) %><%= message.message.length > 30 ? "..." : "" %></td>
     <td><span class="label <%= label %>"><%= APP_CONFIG[:status][message.status.to_i] %></span></td>
-    <td><%= link_to 'Показать', message_path(message.site.id, message) %></td>
-    <td><%= link_to 'Редактировать', edit_message_path(message.site.id, message) %></td>
-    <td><%= link_to 'Удалить', message_path(message.site.id, message), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+    <td><%= link_to 'Показать', message_path(message) %></td>
+    <td><%= link_to 'Редактировать', edit_message_path(message) %></td>
+    <td><%= link_to 'Удалить', message_path(message), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
   </tr>
 <% end %>
 </table>

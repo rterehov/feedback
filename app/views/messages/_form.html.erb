@@ -1,5 +1,4 @@
-<%#= form_for(site_message_path(@message)) do |f| %>
-<%= form_for(@message, :url => site_message_path(@message), :method => :put) do |f| %>
+<%= form_for(@message, :url => message_path(@message), :method => :put) do |f| %>
   <div class="field">
     <%= f.label "Статус" %>
     <% for i in APP_CONFIG[:status].keys %>

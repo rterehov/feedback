@@ -1,7 +1,7 @@
 #encoding: utf-8
 class SitesController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :load_site, :only => [:show, :edit, :update, :destroy, :form_post, :for_page]
+  before_filter :preload, :only => [:show, :edit, :update, :destroy, :form_post, :for_page]
 
   def index
     @sites = Site.where(:user_id => current_user.id).paginate(:page => params[:page], :per_page => APP_CONFIG[:per_page])
@@ -17,10 +17,6 @@ class SitesController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @site }
     end
-  end
-
-  def show_form
-    @site = Site.find(params[:site_id]) 
   end
 
   def new
@@ -51,8 +47,6 @@ class SitesController < ApplicationController
   end
 
   def update
-    @site = Site.find(params[:id])
-
     respond_to do |format|
       if @site.update_attributes(params[:site])
         format.html { redirect_to site_path(@site), notice: 'Данные сайта успешно обновлены' }
@@ -65,7 +59,6 @@ class SitesController < ApplicationController
   end
 
   def destroy
-    @site = Site.find(params[:id])
     @site.destroy
 
     respond_to do |format|
@@ -74,16 +67,9 @@ class SitesController < ApplicationController
     end
   end
 
-  def form_post
-  end
-
-  def form_page
-    @form = nil
-  end
-
 protected
 
-  def load_site
+  def preload
     @site = Site.find(params[:id])
     if @site.user != current_user
       flash[:notice] = "Сайт не зарегистрирован"
