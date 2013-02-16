@@ -24,6 +24,8 @@ class Site < ActiveRecord::Base
 private
 
   def domain_check
+    return if domain == 'localhost'
+    errors[:base] << "Неверно указан домен" unless domain.include?(".")
     if Regexp.new(/^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$/).match(domain)
       errors[:base] << "Укажите домен, а не IP"
     end

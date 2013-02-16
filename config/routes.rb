@@ -12,9 +12,8 @@ Feedback::Application.routes.draw do
 
   scope "/profile" do
     match "/" => "profile#show", :as => :profile
-    resources :sites do
-      resources :messages, :exclude => [:new, :create]
-    end
+    resources :sites
+    resources :messages, :exclude => [:new, :create]
     match "/messages" => "messages#index", :as => :messages
   end
 

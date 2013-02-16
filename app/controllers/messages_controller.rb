@@ -3,12 +3,30 @@ class MessagesController < ApplicationController
   before_filter :authenticate_user!, :only => [:index, :show, :edit, :update, :destroy]
   
   def index
-    ids = current_user.sites.all(:select => 'id').map(&:id)
-    if ids.empty?
-      @messages = []
-    else
-      @messages = Message.where("site_id in (#{ids.join(',')})")
+    @site = nil
+    site_id = params[:message][:site_id].to_i
+    @status = params[:message][:status].to_i
+    ids = Array.new
+    @messages = Array.new
+    if site_id
+      @site = Site.find(site_id) rescue nil
     end
+    @sites = current_user.sites
+    if @site and @site.user == current_user
+      ids = [@site.id]
+    end
+    if site_id == 0
+      ids = @sites.map(&:id)
+    end
+    unless ids.empty?
+      @messages = Message.where("site_id in (#{ids.join(',')})")
+      if @status > 0
+        @messages = @messages.where("status = #{@status}")
+      end
+      @messages = @messages.paginate(:page => params[:page], :per_page => APP_CONFIG[:per_page])
+    end
+    @statuses = []
+    APP_CONFIG[:status].keys.each {|key| @statuses << [APP_CONFIG[:status][key], key]}
 
     respond_to do |format|
       format.html # index.html.erb

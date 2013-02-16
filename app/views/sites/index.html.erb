@@ -1,5 +1,9 @@
 <h3>Мои сайты</h3>
 
+<% unless @sites.empty? %>
+<%= will_paginate @sites %>
+<% end %>
+
 <table class="table">
   <tr>
     <th>Сайт</th>
@@ -17,6 +21,9 @@
 </table>
 
 <br />
-
+<% unless @sites.empty? %>
+<%= will_paginate @sites %>
+<% end %>
+<br />
 <%= link_to 'Добавить сайт', new_site_path, :class => "btn btn-mini btn-primary"  %>
 

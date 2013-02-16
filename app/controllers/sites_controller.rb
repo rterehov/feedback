@@ -4,7 +4,7 @@ class SitesController < ApplicationController
   before_filter :load_site, :only => [:show, :edit, :update, :destroy, :form_post, :for_page]
 
   def index
-    @sites = Site.where(:user_id => current_user.id)
+    @sites = Site.where(:user_id => current_user.id).paginate(:page => params[:page], :per_page => APP_CONFIG[:per_page])
 
     respond_to do |format|
       format.html # index.html.erb

@@ -1,5 +1,18 @@
 <h3>Сообщения пользователей</h3>
 
+
+<%= form_for(:message, :url => messages_path , :html => { :method => :get, :class => "form form-inline "}) do |f| %>
+  <label>Сайт</label>
+  <%= f.select :site_id, options_from_collection_for_select(@sites, :id, :domain, @site.nil? ? '' : @site.id), {:include_blank => 'Все сайты'} %>
+  <label>Статус</label>
+  <%= f.select :status, options_for_select(@statuses, @status ? @status : ''), {:include_blank => 'Все статусы'} %>
+<%= f.submit "Применить", :class => "btn btn-success"  %>
+<% end %>
+
+<% unless @messages.empty? %>
+<%= will_paginate @messages %>
+<% end %>
+
 <table class=table>
   <tr>
     <th>Сайт</th>
@@ -22,10 +35,14 @@
     <td><%= message.email %></td>
     <td><%= message.message.first(30) %><%= message.message.length > 30 ? "..." : "" %></td>
     <td><span class="label <%= label %>"><%= APP_CONFIG[:status][message.status.to_i] %></span></td>
-    <td><%= link_to 'Показать', site_message_path(message.site.id, message) %></td>
-    <td><%= link_to 'Редактировать', edit_site_message_path(message.site.id, message) %></td>
-    <td><%= link_to 'Удалить', site_message_path(message.site.id, message), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+    <td><%= link_to 'Показать', message_path(message.site.id, message) %></td>
+    <td><%= link_to 'Редактировать', edit_message_path(message.site.id, message) %></td>
+    <td><%= link_to 'Удалить', message_path(message.site.id, message), method: :delete, data: { confirm: 'Вы уверены?' } %></td>
   </tr>
 <% end %>
 </table>
-
+<br>
+<% unless @messages.empty? %>
+<%= will_paginate @messages %>
+<% end %>
+<br>
