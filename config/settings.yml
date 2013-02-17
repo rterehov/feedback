@@ -19,7 +19,7 @@ global: &global
   
 development: &development
   <<: *global
-  host: "http://feedback-test-app.herokuapp.com"
+  host: "feedback-test-app.herokuapp.com"
   port: 80
 
 
