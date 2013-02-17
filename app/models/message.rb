@@ -20,7 +20,7 @@ protected
 
   def phone_length
     return if phone.blank?
-    return if Regexp.new(/^\d\d\d\d\d\d\d\d\d\d/).match(phone)
+    return if Regexp.new(/^\d\d\d\d\d\d\d\d\d\d$/).match(phone)
     errors[:base] << "Телефон должен быть представлен в виде 10-ти цифр"
   end
 
