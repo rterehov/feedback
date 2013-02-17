@@ -20,10 +20,10 @@
 <% end %>
 </table>
 
-<br />
 <% unless @sites.empty? %>
+<br>
 <%= will_paginate @sites %>
+<br>
 <% end %>
-<br />
-<%= link_to 'Добавить сайт', new_site_path, :class => "btn btn-mini btn-primary"  %>
+<%= link_to 'Добавить сайт', new_site_path, :class => "btn btn-primary"  %>
 

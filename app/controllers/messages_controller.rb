@@ -64,6 +64,7 @@ class MessagesController < ApplicationController
   end
 
   def create
+    @message = Message.new(params[:message])
     @debug = params[:debug]
     @site = Site.find(params[:site_id])
     unless @site
