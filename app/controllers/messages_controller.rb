@@ -9,7 +9,7 @@ class MessagesController < ApplicationController
     @status = 0
     if params[:message]
       site_id = params[:message][:site_id]
-      @status = params[:message][:status]
+      @status = params[:message][:status].to_i
     end
     ids = Array.new
     @messages = Array.new
