@@ -2,7 +2,13 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
 
+gem 'rack-cache'
+gem 'dalli'
+gem 'kgio'
+gem 'redis-rack-cache'
+
 gem 'pg'
+#gem 'activerecord-pg-adapter'
 
 gem 'devise'
 gem 'rspec'

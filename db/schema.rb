@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20130211131845) do
 
   create_table "messages", :force => true do |t|
-    t.integer  "site_id"
+    t.integer  "site_id",                   :null => false
     t.string   "name"
     t.string   "phone"
     t.string   "email"
@@ -25,11 +25,11 @@ ActiveRecord::Schema.define(:version => 20130211131845) do
   end
 
   create_table "sites", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "domain"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "email"
+    t.integer  "user_id",                    :null => false
+    t.string   "domain",                     :null => false
+    t.string   "email",      :default => "", :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "users", :force => true do |t|
